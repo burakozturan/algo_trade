@@ -15,6 +15,7 @@ The latest backtest on the most recent 200 signals after `2026-01-01` produced:
 | Win rate | `62.00%` |
 | Best timeframe | `1-hour` |
 | Best direction | `Long` |
+| Portfolio entry balance | `$100,000` |
 | Portfolio final balance | `$101,596.39` |
 | Max drawdown | `-0.57%` |
 
