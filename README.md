@@ -50,10 +50,10 @@ These scripts use local IB Gateway / TWS connections and do not store credential
 
 ## How to Run
 
-1. Install dependencies:
+1. Install the package and notebook extras:
 
 ```bash
-pip install -r requirements.txt
+pip install -e ".[notebook]"
 ```
 
 2. Start IB Gateway or TWS first, then run one of the tracker scripts:
