@@ -48,6 +48,32 @@ IBKR helpers live under `ibkr/`:
 
 These scripts use local IB Gateway / TWS connections and do not store credentials in the repo.
 
+## How to Run
+
+1. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+2. Start IB Gateway or TWS first, then run one of the tracker scripts:
+
+```bash
+python rsi_tracker/rsi_tracker_tws.py
+python rsi_tracker/rsi_tracker.py
+python rsi_tracker/rsi_signal_monitor.py
+```
+
+3. Run the IBKR helpers when you need them:
+
+```bash
+python ibkr/ibkr_fix_auth.py
+python ibkr/ibkr_scanner.py
+python ibkr/ibkr_short_tomorrow.py
+```
+
+The RSI scripts are for live tracking and confluence research, while the IBKR scripts are support utilities for auth, scanning, and candidate selection.
+
 ## Backtest Results
 
 The backtest used the latest 200 signals after `2026-01-01`.
