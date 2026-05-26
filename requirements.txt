@@ -1,0 +1,8 @@
+pandas>=2.2
+numpy>=2.0
+plotly>=6.0
+yfinance>=0.2
+chardet>=5.0
+pytz>=2024.1
+jupyter>=1.0
+ipykernel>=6.0
