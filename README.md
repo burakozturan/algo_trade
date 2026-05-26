@@ -50,9 +50,11 @@ These scripts use local IB Gateway / TWS connections and do not store credential
 
 ## How to Run
 
-1. Install the package and notebook extras:
+1. Create a local `.env` from the sample and install the package and notebook extras:
 
 ```bash
+cp .env.example .env
+# edit .env as required
 pip install -e ".[notebook]"
 ```
 

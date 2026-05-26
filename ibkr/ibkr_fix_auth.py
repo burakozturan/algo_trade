@@ -1,8 +1,11 @@
 import requests
 import json
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 requests.packages.urllib3.disable_warnings()
-BASE_URL = "https://localhost:5000/v1/api"
+BASE_URL = os.getenv("IB_API_BASE_URL", "https://localhost:5000/v1/api")
 
 # Step 1: Check auth status
 print("--- Auth Status ---")

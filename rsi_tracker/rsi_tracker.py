@@ -33,14 +33,18 @@ from rich.live    import Live
 from rich.panel   import Panel
 from rich.text    import Text
 from rich         import box
+import os
+from dotenv import load_dotenv
 
 # ─────────────────────────────────────────────
-#  CONFIG
+#  CONFIG (loaded from environment when available)
 # ─────────────────────────────────────────────
-TWS_HOST  = "127.0.0.1"
-TWS_PORT  = 4001        # 4001 = live IB Gateway | 4002 = paper IB Gateway
-                         # 7496 = live TWS        | 7497 = paper TWS
-CLIENT_ID = 17533939
+load_dotenv()
+
+# IB / TWS connection defaults (override via .env)
+TWS_HOST  = os.getenv("TWS_HOST", "127.0.0.1")
+TWS_PORT  = int(os.getenv("TWS_PORT", os.getenv("TWS_SOCKET", "4001")))
+CLIENT_ID = int(os.getenv("CLIENT_ID", "17533939"))
 
 STOCKS = [
     "AAPL", "AMZN", "GOOG", "META",
