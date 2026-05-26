@@ -1,4 +1,6 @@
-# Mean Reversion Backtest Repo
+# algo_trade
+
+Branch: `mean_reversion`
 
 This repository contains a Jupyter notebook and the CSV data used to run a signal backtest from a local `data/` folder.
 
