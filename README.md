@@ -29,6 +29,14 @@ The backtest used the latest 200 signals after `2026-01-01`.
 
 The notebook loads the CSV locally, maps the signal columns into the engine schema, filters the signals by date, and runs the simulation and portfolio workflow end to end. It also saves summary tables and Plotly charts for review.
 
+## Outputs
+
+Running the notebook produces:
+
+- Backtest summary CSV
+- Portfolio equity CSV
+- Plotly HTML charts for the distribution, timeframe split, direction split, and equity curve
+
 ## Mean Reversion Strategy Summary
 
 The strategy is built around mean reversion: when price stretches too far away from a short-term equilibrium, the model looks for a reversal back toward the mean. Rather than relying on a single trigger, the signal logic combines several filters:
