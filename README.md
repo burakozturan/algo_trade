@@ -9,6 +9,19 @@ This repository contains a Jupyter notebook and the CSV data used to run a signa
 - `data/TradeSignals - Stocks.csv` - source signal file
 - `notebooks/backtest_data_engine.ipynb` - notebook for mapping, filtering, simulation, plots, and portfolio analysis
 
+## Backtest Results
+
+The backtest was run on the latest 200 signals after `2026-01-01`.
+
+- Average final PnL per signal: `0.79%`
+- Median final PnL per signal: `1.39%`
+- Win rate: `62.00%`
+- Best timeframe: `1-hour`
+- Best direction: `Long`
+- Portfolio final balance: `$101,596.39`
+- Max drawdown: `-0.57%`
+- Signal window used in the run: `2026-04-29` to `2026-05-22`
+
 ## What the notebook does
 
 The notebook loads the CSV locally, maps the signal columns into the engine schema, filters the signals by date, and runs the simulation and portfolio workflow end to end. It also saves summary tables and Plotly charts for review.
@@ -22,10 +35,9 @@ The strategy is built around mean reversion: when price stretches too far away f
 - Direction-aware validation so long and short setups are handled differently
 - Price-based checks such as signal price, take profit, and stop loss levels
 
+In practice, the idea is to enter when the market looks extended, then capture the snap-back move while controlling risk with predefined exits. The signals are not taken blindly from one indicator; they are built from a confluence of conditions, with the stochastic oscillator and time window acting as key confirmation filters.
 
-In practice, the idea is to enter when the market looks extended, then capture the snap-back move while controlling risk with predefined exits.
-
-If you are interested in the performance and the exact strategy, please reach out.
+If you are interested in the performance, please reach out.
 
 ## Notes
 
