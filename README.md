@@ -11,16 +11,19 @@ This repository contains a Jupyter notebook and the CSV data used to run a signa
 
 ## Backtest Results
 
-The backtest was run on the latest 200 signals after `2026-01-01`.
+The backtest used the latest 200 signals after `2026-01-01`.
 
-- Average final PnL per signal: `0.79%`
-- Median final PnL per signal: `1.39%`
-- Win rate: `62.00%`
-- Best timeframe: `1-hour`
-- Best direction: `Long`
-- Portfolio final balance: `$101,596.39`
-- Max drawdown: `-0.57%`
-- Signal window used in the run: `2026-04-29` to `2026-05-22`
+| Metric | Value |
+| --- | ---: |
+| Signals evaluated | `200` |
+| Signal window | `2026-04-29` to `2026-05-22` |
+| Average final PnL per signal | `0.79%` |
+| Median final PnL per signal | `1.39%` |
+| Win rate | `62.00%` |
+| Best timeframe | `1-hour` |
+| Best direction | `Long` |
+| Portfolio final balance | `$101,596.39` |
+| Max drawdown | `-0.57%` |
 
 ## What the notebook does
 
@@ -28,14 +31,14 @@ The notebook loads the CSV locally, maps the signal columns into the engine sche
 
 ## Mean Reversion Strategy Summary
 
-The strategy is built around mean reversion: when price stretches too far away from a short-term equilibrium, the model looks for a reversal back toward the mean. The signal logic combines multiple filters, including:
+The strategy is built around mean reversion: when price stretches too far away from a short-term equilibrium, the model looks for a reversal back toward the mean. Rather than relying on a single trigger, the signal logic combines several filters:
 
 - Stochastic oscillator extremes to detect overbought or oversold conditions
 - Time-based filters so entries are taken only during more relevant market windows
 - Direction-aware validation so long and short setups are handled differently
 - Price-based checks such as signal price, take profit, and stop loss levels
 
-In practice, the idea is to enter when the market looks extended, then capture the snap-back move while controlling risk with predefined exits. The signals are not taken blindly from one indicator; they are built from a confluence of conditions, with the stochastic oscillator and time window acting as key confirmation filters.
+In practice, the idea is to enter when the market looks extended, then capture the snap-back move while controlling risk with predefined exits. The signals are not taken blindly from one indicator; they are built from a confluence of conditions, with the stochastic oscillator and time window acting as key confirmation filters. This gives the strategy a more selective, event-driven profile rather than a generic oscillation trade.
 
 If you are interested in the performance, please reach out.
 
