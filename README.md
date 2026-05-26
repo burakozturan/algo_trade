@@ -3,7 +3,7 @@
 Branching model: this repo intentionally keeps `mean_reversion` (backtests) and
 `rsi_tracker` (live tracking) separate. See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
-Branch: `rsi_tracker`
+Branch: `mean_reversion`
 
 This repository contains a Jupyter notebook and the CSV data used to run a signal backtest from a local `data/` folder.
 
