@@ -4,6 +4,20 @@ Branch: `mean_reversion`
 
 This repository contains a Jupyter notebook and the CSV data used to run a signal backtest from a local `data/` folder.
 
+## Performance at a Glance
+
+The latest backtest on the most recent 200 signals after `2026-01-01` produced:
+
+| Metric | Value |
+| --- | ---: |
+| Average final PnL per signal | `0.79%` |
+| Median final PnL per signal | `1.39%` |
+| Win rate | `62.00%` |
+| Best timeframe | `1-hour` |
+| Best direction | `Long` |
+| Portfolio final balance | `$101,596.39` |
+| Max drawdown | `-0.57%` |
+
 ## Layout
 
 - `data/TradeSignals - Stocks.csv` - source signal file
