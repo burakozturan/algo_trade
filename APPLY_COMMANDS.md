@@ -6,7 +6,6 @@ cd algo_trade
 
 # 2. Copy these generated files into the repo:
 #    README.md
-#    CONTRIBUTING.md
 #    .env.example
 #    .github/pull_request_template.md
 #    docs/resume_project_snippet.md
@@ -15,7 +14,7 @@ cd algo_trade
 git diff
 
 # 4. Commit
-git add README.md CONTRIBUTING.md .env.example .github/pull_request_template.md docs/resume_project_snippet.md
+git add README.md .env.example .github/pull_request_template.md docs/resume_project_snippet.md
 git commit -m "Improve repo documentation for quant research workflows"
 
 # 5. Push

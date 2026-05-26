@@ -1,30 +1,5 @@
 # algo_trade
 
-Branching model: this repo intentionally keeps `mean_reversion` (backtests) and
-`rsi_tracker` (live tracking) separate. See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
-
-Branch: `rsi_tracker`
-
-This repository contains a Jupyter notebook and the CSV data used to run a signal backtest from a local `data/` folder.
-
-It also includes the RSI tracker and IBKR utility scripts on the `rsi_tracker` branch for live tracking, scanning, and signal research.
-
-## Performance at a Glance
-
-The latest backtest on the most recent 200 signals after `2026-01-01` produced:
-
-| Metric | Value |
-| --- | ---: |
-| Average final PnL per signal | `0.79%` |
-| Median final PnL per signal | `1.39%` |
-| Win rate | `62.00%` |
-| Best timeframe | `1-hour` |
-| Best direction | `Long` |
-| Portfolio entry balance | `$100,000` |
-| Portfolio final balance | `$101,596.39` |
-| Max drawdown | `-0.57%` |
-# algo_trade
-
 Python research toolkit for mean-reversion signal backtesting, intraday RSI monitoring, IBKR/TWS utilities, and portfolio diagnostics.
 
 This repository is an exploratory quantitative research and engineering project. It includes:
@@ -38,42 +13,15 @@ This repository is an exploratory quantitative research and engineering project.
 
 ---
 
-## Components
+## Branches
 
-### 1. Mean-Reversion Backtest
-
-The mean-reversion workflow maps raw stock signal records into a reusable simulation schema, evaluates entries and exits, and produces portfolio-level diagnostics.
-
-The current notebook:
-
-- loads signal data from a local `data/` folder,
-- maps signal columns into the backtest engine schema,
-- filters signals by date,
-- simulates long and short setups,
-- evaluates performance by timeframe and direction,
-- exports summary CSV files and Plotly charts.
-
-### 2. RSI Multi-Timeframe Tracker
-
-The RSI tracker contains standalone Python scripts for intraday monitoring and confluence research. The current workflows focus on 5-minute, 15-minute, and 1-hour RSI conditions, including Mega 7 stock monitoring.
-
-The tracker is designed for research and monitoring workflows, not automated order execution.
-
-### 3. IBKR / TWS Utilities
-
-The `ibkr/` directory contains helper scripts for working with local IB Gateway / Trader Workstation connections. These utilities support local authentication checks, scanner workflows, and candidate selection.
-
-Credentials and account-specific settings are not stored in this repository.
-
-### 4. Discord Signal Alerts
-
-The monitoring workflow can be extended with Discord notifications for signal alerts. This is intended as a lightweight research notification layer for reviewing intraday setups.
+The repository keeps `mean_reversion` and `rsi_tracker` separate so backtesting and live-monitoring workflows can evolve independently.
 
 ---
 
 ## Performance at a Glance
 
-The latest exploratory backtest on the most recent 200 signals after 2026-01-01 produced:
+The latest exploratory backtest on the most recent 200 signals after `2026-01-01` produced:
 
 | Metric | Value |
 |---|---:|
@@ -170,10 +118,10 @@ Running the notebook produces:
 - backtest summary CSV,
 - portfolio equity CSV,
 - Plotly HTML charts for:
-	- PnL distribution,
-	- timeframe split,
-	- direction split,
-	- equity curve.
+  - PnL distribution,
+  - timeframe split,
+  - direction split,
+  - equity curve.
 
 Suggested screenshots to add under an `assets/` folder:
 
@@ -214,6 +162,7 @@ The notebook currently reads from:
 ```text
 ../data/TradeSignals - Stocks.csv
 ```
+
 because it lives inside the `notebooks/` directory.
 
 ---
