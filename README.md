@@ -22,9 +22,10 @@ The strategy is built around mean reversion: when price stretches too far away f
 - Direction-aware validation so long and short setups are handled differently
 - Price-based checks such as signal price, take profit, and stop loss levels
 
+
 In practice, the idea is to enter when the market looks extended, then capture the snap-back move while controlling risk with predefined exits.
 
-If you are interested in the performance, please reach out.
+If you are interested in the performance and the exact strategy, please reach out.
 
 ## Notes
 
