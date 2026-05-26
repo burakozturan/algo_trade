@@ -6,3 +6,7 @@ chardet>=5.0
 pytz>=2024.1
 jupyter>=1.0
 ipykernel>=6.0
+ib_insync>=0.9
+rich>=13.0
+requests>=2.31
+scipy>=1.11

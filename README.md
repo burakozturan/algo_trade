@@ -1,8 +1,10 @@
 # algo_trade
 
-Branch: `mean_reversion`
+Branch: `rsi_tracker`
 
 This repository contains a Jupyter notebook and the CSV data used to run a signal backtest from a local `data/` folder.
+
+It also includes the RSI tracker and IBKR utility scripts on the `rsi_tracker` branch for live tracking, scanning, and signal research.
 
 ## Performance at a Glance
 
@@ -22,6 +24,29 @@ The latest backtest on the most recent 200 signals after `2026-01-01` produced:
 
 - `data/TradeSignals - Stocks.csv` - source signal file
 - `notebooks/backtest_data_engine.ipynb` - notebook for mapping, filtering, simulation, plots, and portfolio analysis
+- `rsi_tracker/` - RSI tracker and confluence research scripts
+- `ibkr/` - IBKR utility scripts and auth/scanner helpers
+
+## RSI Tracker / IBKR
+
+The RSI tracker code is organized as standalone Python scripts for live and research workflows:
+
+- `rsi_tracker/rsi_tracker.py`
+- `rsi_tracker/rsi_tracker_tws.py`
+- `rsi_tracker/rsi_signal_monitor.py`
+- `rsi_tracker/rsi_strategy_finder.py`
+- `rsi_tracker/rsi_mtf_confluence.py`
+- `rsi_tracker/rsi_mag7_signal.py`
+- `rsi_tracker/rsi_mag7_ibkr.py`
+- `rsi_tracker/rsi_tracker_tws_test_plain.py`
+
+IBKR helpers live under `ibkr/`:
+
+- `ibkr/ibkr_fix_auth.py`
+- `ibkr/ibkr_scanner.py`
+- `ibkr/ibkr_short_tomorrow.py`
+
+These scripts use local IB Gateway / TWS connections and do not store credentials in the repo.
 
 ## Backtest Results
 
