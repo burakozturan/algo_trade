@@ -38,6 +38,31 @@ The latest exploratory backtest on the most recent 200 signals after `2026-01-01
 
 These results are historical backtest outputs only. They do not include all real-world trading frictions and should not be interpreted as live performance.
 
+## Real-life Estimate (with simple trading costs)
+
+To give a rough idea of how trading costs would affect the exploratory results above, a quick sensitivity was applied to the generated portfolio assuming:
+
+- **Position sizing**: `BET_MODE='fraction'` with `BET_SIZE=0.01` (1% of current balance per trade).
+- **Round-trip cost (commission + slippage)**: **0.07%** of traded notional per trade (0.0007).
+
+Under these conservative assumptions (costs charged on each executed position sized at 1% of account), the notebook produces an approximate adjusted outcome:
+
+- **Start balance**: $100,000 (approx)
+- **Final balance (adjusted)**: $102,270.42 (approx)
+- **Net change**: +2.27% (approx)
+- **Mean PnL per signal (adjusted)**: ~1.12% (was ~1.19% before costs)
+- **Max drawdown (adjusted)**: ~-0.74%
+
+These numbers are only an illustrative, order-of-magnitude adjustment. They assume you can fill at the reported `Signal Price` (the engine currently uses the supplied signal/optimum/SL price when provided), and that position sizing is `1%` per trade. Real-life slippage, market impact, exchange/clearing fees, latency misses, partial fills, and taxes can further reduce realized returns.
+
+If you want, I can:
+
+- Re-run the notebook with different cost scenarios (higher/lower round-trip cost).
+- Use a per-trade fixed commission model instead of percentage-based costs.
+- Simulate fills at next-bar open instead of the supplied `Signal Price` while still charging costs (a more conservative hybrid).
+
+The raw artifacts used to compute these adjusted numbers are in `notebooks/backtest_portfolio.csv` and `notebooks/backtest_results_from_data_engine.csv`. A short summary was written to `notebooks/approx_real_life_summary.txt`.
+
 ---
 
 ## Repository Structure
@@ -106,6 +131,8 @@ The mean-reversion logic is based on the idea that when price stretches too far 
 - time-window filters,
 - direction-aware validation for long and short setups,
 - price-based checks such as signal price, take-profit, and stop-loss levels.
+
+Note: To avoid obvious lookahead the simulation uses the next-bar Open as the execution price for any signal or event (i.e., entries are placed at the Open of the first bar strictly after the event timestamp). The exploratory runs in this repo do not apply transaction costs or explicit slippage models — real-life performance will be lower. These assumptions are documented here for transparency.
 
 The RSI tracker extends this research workflow by monitoring intraday RSI conditions across multiple timeframes and producing signals for review.
 

@@ -462,11 +462,14 @@ class DataEngine:
         if df_sim_original.empty: return None
 
         def run_calc(entry_price, start_time, df_target):
+            # entry_price: numeric price at which position is assumed opened
+            # start_time: Timestamp index from which we include bars (inclusive)
             if entry_price == 0: return None
-            
+
+            # Use bars starting at the entry bar (inclusive) to avoid lookahead
             future_data = df_target[df_target.index >= start_time].copy()
             if future_data.empty: return None
-            future_data = future_data.iloc[:sim_bars] 
+            future_data = future_data.iloc[:sim_bars]
             
             pnl_percent = []
             dates = []
@@ -560,24 +563,53 @@ class DataEngine:
                         noise = np.random.normal(0, scale, size=len(df_curr))
                         df_curr[c] = df_curr[c] * (1 + noise)
 
+            # Use the provided signal/optimum/SL price as the execution price when available
+            # (user requested to assume fills at the provided signal prices). If a price
+            # is missing or zero, fall back to the next bar Open.
             prices = {"Signal": sig_price, "Optimum": opt_price, "SL": sl_price}
-            
             for key in ["Signal", "Optimum", "SL"]:
-                start_t = hit_times[key]
-                if start_t is not None:
-                    res = run_calc(prices[key], start_t, df_curr)
-                    if res:
-                        acc = accumulators[key]
-                        if acc["pnl_sum"] is None:
-                            acc["pnl_sum"] = np.zeros(len(res["pnl"]))
-                            acc["dates"] = res["dates"] 
-                        
-                        curr_pnl = np.array(res["pnl"])
-                        if len(curr_pnl) == len(acc["pnl_sum"]):
-                            acc["pnl_sum"] += curr_pnl
-                            acc["mae_sum"] += res["mae"]
-                            acc["mfe_sum"] += res["mfe"]
-                            acc["count"] += 1
+                event_t = hit_times[key]
+                if event_t is None:
+                    continue
+
+                entry_price_actual = None
+                # prefer the provided event price (Signal/Optimum/SL) if > 0
+                supplied_price = prices.get(key, 0)
+                try:
+                    supplied_price = float(supplied_price)
+                except Exception:
+                    supplied_price = 0.0
+
+                if supplied_price > 0:
+                    entry_price_actual = supplied_price
+                    entry_time = event_t
+                else:
+                    # fallback: find first index strictly after the event timestamp
+                    later_indices = df_curr.index[df_curr.index > event_t]
+                    if len(later_indices) == 0:
+                        continue
+                    entry_time = later_indices[0]
+                    try:
+                        entry_price_actual = float(df_curr.loc[entry_time].get('Open', 0.0))
+                    except Exception:
+                        entry_price_actual = float(df_curr['Close'].iloc[0])
+
+                if entry_price_actual == 0:
+                    continue
+
+                res = run_calc(entry_price_actual, entry_time, df_curr)
+                if res:
+                    acc = accumulators[key]
+                    if acc["pnl_sum"] is None:
+                        acc["pnl_sum"] = np.zeros(len(res["pnl"]))
+                        acc["dates"] = res["dates"]
+
+                    curr_pnl = np.array(res["pnl"])
+                    if len(curr_pnl) == len(acc["pnl_sum"]):
+                        acc["pnl_sum"] += curr_pnl
+                        acc["mae_sum"] += res["mae"]
+                        acc["mfe_sum"] += res["mfe"]
+                        acc["count"] += 1
         
         for key in ["Signal", "Optimum", "SL"]:
             acc = accumulators[key]
